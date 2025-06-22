@@ -24,17 +24,17 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
       tableBody.appendChild(row);
     });
-
-    // إضافة حدث الحذف لكل زر
-    document.querySelectorAll(".delete-button").forEach(button => {
-      button.addEventListener("click", () => {
-        const index = button.getAttribute("data-index");
-        appointments.splice(index, 1);
-        saveAppointments();
-        renderAppointments();
-      });
-    });
   }
+
+  // ✅ هنا الحل: event delegation
+  tableBody.addEventListener("click", (e) => {
+    if (e.target.classList.contains("delete-button")) {
+      const index = e.target.getAttribute("data-index");
+      appointments.splice(index, 1);
+      saveAppointments();
+      renderAppointments();
+    }
+  });
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
